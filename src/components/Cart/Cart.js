@@ -1,36 +1,33 @@
 import React from 'react';
+import './Cart.css';
 
 const Cart = (props) => {
-    const cart = props.cart;
-    const totalPrice = cart.reduce((total, prd) => total + prd.price, 0);
+    const { cart } = props;
 
-    let shipping = 0;
-    if (totalPrice > 35) {
-        shipping = 0;
-    }
-    else if (totalPrice > 15) {
-        shipping = 4.99;
-    }
-    else if (totalPrice > 0) {
-        shipping = 12.99;
-    }
-
-    const tax = totalPrice / 10;
-    const grandTotal = (totalPrice + shipping + Number(tax)).toFixed(2);
-
-    const formatNumber = num => {
-        const precision = num.toFixed(2);
-        return Number(precision);
+    // const totalReducer = (previous, product) => previous + product.price;
+    // const total = cart.reduce(totalReducer, 0);
+    let totalQuantity = 0;
+    let total = 0;
+    for (const product of cart) {
+        if (!product.quantity) {
+            product.quantity = 1;
+        }
+        total = total + product.price * product.quantity;
+        totalQuantity = totalQuantity + product.quantity;
     }
 
+    const shipping = total > 0 ? 15 : 0;
+    const tax = (total + shipping) * 10;
+    const grandTotal = total + shipping + tax;
     return (
         <div>
             <h3>Order Summary</h3>
-            <p>Items Ordered: {cart.length}</p>
-            <p>Product Price: {formatNumber(totalPrice)}</p>
-            <p><small>Shipping Cost : {shipping}</small></p>
-            <p><small>Tax + VAT: {formatNumber(tax)}</small></p>
-            <p>Total Price: {grandTotal}</p>
+            <h5>Items Ordered: {totalQuantity}</h5>
+            <br />
+            <p>Total: {total.toFixed(2)}</p>
+            <p>Shipping: {shipping}</p>
+            <p>tax: {tax.toFixed(2)}</p>
+            <p>Grand Total: {grandTotal.toFixed(2)}</p>
         </div>
     );
 };
