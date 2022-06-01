@@ -7,3 +7,16 @@
     margin: 0 5px 0 50px;
     border-right: 1px solid lightgray;
 }
+
+.search-container {
+    background-color: #000000cb;
+    text-align: center;
+    padding: 8px;
+}
+
+.search-container input {
+    width: 40%;
+    border: 1px solid gray;
+    outline: 0;
+    padding: 5px;
+}
