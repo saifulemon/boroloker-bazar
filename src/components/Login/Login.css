@@ -144,3 +144,11 @@
   background-position: 0 -135px;
   color: #00aeef;
 }
+
+.register {
+    color: #7E7E7E;
+    margin-top: 100px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
