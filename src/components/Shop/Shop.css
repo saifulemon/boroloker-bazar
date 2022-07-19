@@ -15,6 +15,7 @@
 }
 
 .search-container input {
+    color: white;
     width: 40%;
     border: 1px solid gray;
     outline: 0;
