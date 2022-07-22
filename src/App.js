@@ -7,23 +7,31 @@ import Login from './components/Login/Login';
 import NotFound from './components/NotFound/NotFound';
 import OrderReview from './components/OrderReview/OrderReview';
 import PlaceOrder from './components/PlaceOrder/PlaceOrder';
+import PrivateOutlet from './components/PrivateRoute/PrivateOutlet';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Shipping from './components/Shipping/Shipping';
 import Shop from './components/Shop/Shop';
+import AuthProvider from './context/AuthProvider';
 
 function App() {
   return (
     <div>
-      <Router>
-        <Header></Header>
-        <Routes>
-          <Route path='/' element={<Shop />} />
-          <Route path='/shop' element={<Shop />} />
-          <Route path='/review' element={<OrderReview />} />
-          <Route path='/inventory' element={<Inventory />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/placeorder' element={<PlaceOrder />} />
-          <Route path='*' element={<NotFound />} />
-        </Routes>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Header></Header>
+          <Routes>
+            <Route path='/' element={<Shop />} />
+            <Route path='/shop' element={<Shop />} />
+            <Route path='/review' element={<OrderReview />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/*' element={<PrivateOutlet />} >
+              <Route path='inventory' element={<Inventory />} />
+              <Route path='shipping' element={<Shipping />} />
+            </Route>
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </div>
   );
 }

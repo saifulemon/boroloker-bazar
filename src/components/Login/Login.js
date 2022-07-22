@@ -1,11 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import useFirebase from '../../hooks/useFirebase';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 import './Login.css'
 
 const Login = () => {
 
-    const { user, signinWithGoogle} = useFirebase();
+    const { signinWithGoogle} = useAuth();
+    const history = useNavigate();
+    const location = useLocation();
+    const redirects_url = location.state?.from || '/placeorder';
+
+    const handleGoogleLogin = () => {
+        signinWithGoogle()
+        .then(result => {
+            history(redirects_url);
+        })
+    }
 
     return (
         <div>
@@ -30,7 +40,7 @@ const Login = () => {
                     </div>
                     <br />
                     <div className="acc-signin">
-                        <button className="main-btn" onClick={signinWithGoogle}>Google Sign-in</button>
+                        <button className="main-btn" onClick={handleGoogleLogin}>Google Sign-in</button>
                     </div>
                 </section>
             </div>
